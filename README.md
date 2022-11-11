@@ -71,4 +71,4 @@ Home page is just to give a intro page and the assignment is executed in the ass
 
         $ python ./app.py
 
-the application will display the url on which the app is running and where it can be accessed at.
+the application will display the url on which the app is running and where it can be accessed at within the terminal output.
