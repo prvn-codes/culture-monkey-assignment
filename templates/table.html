@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='myfont/css/all.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <script src="{{url_for('static',filename='js/jquery.min.js')}}"></script>
+    <script src="{{url_for('static',filename='js/bootstrap.min.js')}}"></script>
+    <title>Employee</title>
+</head>
+<body>
+    {% include 'header.html' %}
+    <table class="table">
+        <tr class="table__header">
+            <th class="table__cell">First Name</th>
+            <th class="table__cell">Last Name</th>
+            <th class="table__cell">Email Address</th>
+            <th class="table__cell">Phone</th>
+            <th class="table__cell">Salary</th>
+            <th class="table__cell">Department</th>
+            <th>Edit</th>
+        </tr>
+        {% for employee in employees %}
+        <tr class="table__row">
+            <td class="table__cell">{{employee.first_name}}</td>
+            <td class="table__cell">{{employee.last_name}}</td>
+            <td class="table__cell">{{employee.email_address}}</td>
+            <td class="table__cell">{{employee.phone}}</td>
+            <td class="table__cell">{{employee.salary}}</td>
+            <td class="table__cell">{{departments.query.filter_by(id=employee.dept_id).first().dept_name}}</td>
+            <td><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myOutput{{employee.id}}">Edit</button></td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    {% for employee in employees %}
+    <div class="modal fade" id="myOutput{{employee.id}}" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content col-md-offset-2 col-md-8">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title text-center text-primary">Update Employee Department</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="/assignment">
+                        <div class="form-group">
+                            Employee Name : {{employee.first_name + " " + employee.last_name}}
+                        </div>
+
+                        <div class="form-group">
+                            Employee ID : {{employee.id}}
+                        </div>
+
+                        <div hidden>
+                            <select name="emp_id" id="emp_id" >
+                                <option value= "{{employee.id}}" selected>{{employee.id}}</option>"
+                            </select>
+                        </div>
+                        
+                        <div lass="form-group">
+                            <label for="dept_select"> Choose Department : </label>
+                            <select name="dept_select" id="dept_select" >
+                                {% for department in department_names %}
+                                    <option value= "{{department.id}}">{{department.dept_name}}</option>"
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <br><br>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-primary btn-block" value="update">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% include 'footer.html' %}
+</body>
+</html>
