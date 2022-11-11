@@ -23,7 +23,7 @@ def populate():
     emp_3 = t_employee(first_name='Leonard', last_name='Hofstadter', email_address='iamnotleakey@gmail.com', phone='9988774455', salary='72,00,000')
     db.session.add(emp_3)
 
-    emp_4 = t_employee(first_name='	Howard', last_name='Wolowitz', email_address='austronautWolowitz@gmail.com', phone='9988774455', salary='69,42,000')
+    emp_4 = t_employee(first_name='	Howard', last_name='Wolowitz', email_address='astronautWolowitz@gmail.com', phone='9988774455', salary='69,42,000')
     db.session.add(emp_4)
 
     emp_5 = t_employee(first_name='Rajesh', last_name='Koothrappali', email_address='brown.dynamite@gmail.com', phone='9988774455', salary='1,00,00,000')
