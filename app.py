@@ -45,6 +45,9 @@ def populate():
 
 @app.route("/",methods=['GET','POST'])
 def home():
+    db.session.query(t_employee).delete()
+    db.session.query(t_departments).delete()
+    db.session.commit()
     populate()
     return render_template('index.html')
 
