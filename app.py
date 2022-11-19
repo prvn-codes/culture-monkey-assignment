@@ -52,8 +52,18 @@ def home():
     return render_template('index.html')
 
 
-@app.route("/assignment",methods=['GET','POST'])
+@app.route("/delete/<emp_id>")
+def delete_employee(emp_id):
+    employee = t_employee.query.filter_by(id=emp_id).first()
+    db.session.delete(employee)
+    db.session.commit()
+    return redirect(url_for("assignment"))
+
+@app.route("/assignment",methods=['GET','POST', 'DELETE'])
 def assignment():
+
+    emp_vals = t_employee.query.all()
+    dept_vals = t_departments.query.all()
 
     if request.method == 'POST':
         department_id = request.form['dept_select']
@@ -62,11 +72,13 @@ def assignment():
         employee.dept_id = department_id
 
         db.session.commit()
-
         print(employee)
-        
-    emp_vals = t_employee.query.all()
-    dept_vals = t_departments.query.all()
+
+    if request.method == 'DELETE':
+        emp_id = request.form['emp_id']
+        t_employee.delete().where(t_employee.id == emp_id)
+        return render_template("table.html", employees=emp_vals, departments=t_departments, department_names=dept_vals)
+
     
     return render_template("table.html", employees=emp_vals, departments=t_departments, department_names=dept_vals)
 
