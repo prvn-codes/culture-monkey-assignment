@@ -70,11 +70,13 @@
                         </div>
                         <br><br>
                         <div class="form-group">
-                            <input type="submit" class="btn btn-primary btn-block" value="update">
+                            <input type="submit" class="btn btn-primary btn-block" value="UPDATE">
                         </div>
                         <div class="form-group">
                             <!-- <input type="submit" class="btn btn-primary btn-block" value="delete"> -->
-                            <a href="{{url_for('delete_employee', emp_id = employee.id )}}">DELETE</a>
+                            <button class="btn btn-danger btn-block">
+                                <a  href="{{url_for('delete_employee', emp_id = employee.id )}}"  style="text-decoration: none; color: #e5e5e5;" >DELETE</a>
+                            </button>
                         </div>
                     </form>
                 </div>
